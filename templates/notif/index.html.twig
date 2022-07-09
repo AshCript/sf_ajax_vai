@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello NotifController!{% endblock %}
+
+{% block body %}
+<br><br><br><br>
+<div class="ui raised very padded inverted text container segment slowmo-show">
+  <h2 class="ui header">{{notif.title}}</h2>
+  <p>{{notif.message|raw}}</p>
+  <div class="notif-date" style="right: 10px; bottom: 10px;">Envoyé le {{notif.createdAt|date('d/m/Y')}} vers {{notif.createdAt|date('h:i')}}</div>
+</div>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+<div class="ui container">
+    <div class="ui container middle aligned center aligned grid">
+    <div class="column">
+        <br><br>
+        <hr>
+        <h2 class="ui teal image header">
+        {# <img src="assets/images/logo.png" class="image"> #}
+        <div class="content">
+            Veuillez vous connecter!
+        </div>
+        </h2>
+        {% if error %}
+        <div class="container">
+            <div class="ui red inverted segment">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        </div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+        <form class="ui form" method="post">
+        <div class="centrify">
+            <div class="field">
+            <div class="ui left icon input">
+                <i class="circular inverted teal user icon"></i>
+                <input type="email" placeholder="Email" value="{{ last_username }}" name="email" id="inputEmail" class="teal-field bg-transparent" style="background-color: rgba(0 , 0, 0, 0); color: rgb(211, 211, 211);" required autofocus>
+            </div>
+            </div>
+            <div class="field">
+            <div class="ui left icon input">
+                <i class="circular inverted teal lock icon"></i>
+                <input type="password" placeholder="Mot de passe" name="password" id="inputPassword" class="teal-field bg-transparent" style="background-color: rgba(0 , 0, 0, 0); color: rgb(211, 211, 211);" required>
+            </div>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+            <button type="submit" class="ui fluid large teal submit button">Se connecter</button>
+            <div class="ui error message"></div>
+            <div class="field" style="text-align: right; margin-top: 15px;">
+                <div class="ui left checkbox">
+                    <input type="checkbox" name="_remember_me">
+                    <label style="color: rgb(211, 211, 211);">S'en souvenir de moi</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui message blue">
+                    Vous êtes nouveau? <a class="ui inverted button primary" href=" {{ path('app_register') }} ">Créez un compte</a>
+                </div>
+            </div>
+        </div>
+
+        </form>
+    </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+{# <form method="post">
+    {% if error %}
+    <div class="container">
+        <div class="ui red inverted segment">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    </div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    > #}
+
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+
+    {# <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+</form> #}
+<img class="bg-image" src="{{ asset('img/img1.jpg') }}" alt="">
+{% endblock %}

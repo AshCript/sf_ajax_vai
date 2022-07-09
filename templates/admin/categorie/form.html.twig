@@ -1,0 +1,8 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+  {{form_start(form_cat)}}
+  {{form_widget(form_cat)}}
+  <input type="submit" value="Enregistrer">
+  {{form_end(form_cat)}}
+{% endblock %}

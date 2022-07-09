@@ -1,0 +1,13 @@
+05/06/22
+- Nocommenteko ny vendor/symfony/security-http/Firewall/ContextListener.php
+ligne 227 - 231.
+- No-refactoreko ho lasa class Utilisateur ny class User satria misy erreur
+ fa mifanindry amin'ny table user an'i postgresql ilay table user an'ilay
+ projet.
+- No-commenteko temporairement aloha ny resaka encodage de mot de passe
+ satria mbola tsy ni-install an'ilay module fanaovana hashage ana mot de
+ passe aho.
+- Nanova zavatra kely tato amin'ny vendor/symfony/security-core/Encoder/EncoderFactory.php :
+		- Ligne 51-55 commenté
+		- Ligne 60 commenté.
+		- Ajout return à la ligne 61

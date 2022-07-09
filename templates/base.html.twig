@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+           <link rel="stylesheet" href="{{ asset('css/semantic.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/my_style5.css') }}">
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('navbar_user') }}#}
+        {% endblock %}
+    </head>
+    <body style="background-color: rgb(19, 19, 19); color: rgb(209, 209, 209);">
+        <div class="ui inverted segment">
+            <div class="ui inverted secondary menu">
+                {% if app.user %}
+                  <a class="rot" href=" {{ path('user_home') }} "><div class="my-logo">e-vidy<span class="style-logo"></span></div></a>
+                <a class="item {% if app.request.pathInfo == path('categorie') %} active {% endif %}" href=" {{ path('categorie', {id: '1'}) }} ">Catégories</a>
+                <a class="item" href=" {{ path('user_home') }} ">Nouveautés</a>
+                <div class="connected-user">
+                    <a href="#" class="bag-container">
+                        <i class="shopping basket circular inverted teal large icon"></i>
+                        {# <span class="notif"><div>1</div></span> #}
+                    </a>
+                    <a class="notif-container">
+                        <i class="bell inverted teal circular outline large icon" style="transform: rotate(-15deg)"></i>
+                        {% set newNotifNumber = 0 %}
+                        {% for notif in app.user.notifs %}
+                            {% if notif.seen == false %}
+                                {% set newNotifNumber = newNotifNumber + 1 %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if newNotifNumber != 0 %}
+                        <div class="notif">
+                            <div>{{newNotifNumber}}</div>
+                        </div>
+                        {% endif %}
+                        <div class="ui fluid popup bottom left transition hidden" style="inset: 492.15px auto auto 1px; width: 1321px; max-height: 400px; overflow: scroll;">
+                            <div class="ui one column relaxed divided grid">
+                                <div class="column">
+                                    <h4 class="ui" style="color: teal"><i class="list icon"></i>Notifications.</h4>
+                                    {% for notif in app.user.notifs|sort((a, b) => a.createdAt < b.createdAt) %}
+                                    <div class="ui link list">
+                                        <div class="line"></div>
+                                        <a class="notif-item" style="padding-right: 10px; word-wrap: break-word" href="{{ path('view_notif', {id: notif.id}) }}">
+                                            <p>À propos de la {{notif.title}}</p>
+                                            <div class="notif-date">Envoyé le {{notif.createdAt|date('d/m/Y')}} vers {{notif.createdAt|date('h:i')}}</div>
+                                            {% if notif.seen == false %}
+                                                <span class="notif-icon"><div></div></span>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="user-id">
+                        <a class="link-to-text color-teal" href="{{ path('user_info') }}">
+                            <i class="user circular inverted teal large icon"></i> {{app.user.prenom}}
+                        </a>
+                    </div>
+                    &nbsp;
+                    <a href=" {{ path('app_logout') }} " class="disconnect-button" data-content="Se déconnecter" data-variation="mini">
+                        <i class="circular red inverted large sign-out icon button"></i>
+                    </a>
+
+                </div>
+                {% else %}
+                <a class="rot" href=" {{ path('user_home') }} "><div class="my-logo">e-vidy<span class="style-logo"></span></div></a>
+                <a class="item {% if app.request.pathInfo == path('app_login') %} active {% endif %} " href=" {{ path('app_login') }} ">Se connecter</a>
+                <a class="item {% if app.request.pathInfo == path('app_register') %}active {% endif %}" href=" {{ path('app_register') }} ">S'inscrire</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="navbar_user" datas= {{app.user}}></div>
+            {% if app.user and app.request.pathInfo == path('categorie') %}
+            <div class="ui inverted teal menu">
+                {% for categorie in categories %}
+                <a class="item {% if app.request.requestUri == path('categorie', {id: categorie.id}) %} active {% endif %}" href=" {{ path('categorie', {id: categorie.id}) }} " href=" {{ path('user_home') }} ">{{categorie.nom}}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="as-notif-banner">
+                    <div class="as-notif-icon">
+                        <div class=" as-success-notif">
+                            <div class="as-circle"></div>
+                            <div class="as-short-bar"></div>
+                            <div class="as-long-bar"></div>
+                        </div>
+                        <div class="as-notif-message">
+                            {{message}}
+                        </div>
+                    </div>
+	    	    </div>
+            {% endfor %}
+        {% endfor %}
+        
+        {% block body %}{% endblock %}
+
+
+        <script src="{{ asset('js/jquery.min.js') }}"></script>
+		<script src="{{ asset('js/semantic.min.js') }}"></script>
+        {% if app.user %}
+        <script>
+            $('.disconnect-button').popup({inline: true});
+            $('.notif-container').popup({
+                inline     : true,
+                on: 'click',
+                hoverable  : true,
+                position   : 'bottom left',
+                delay: {
+                show: 300,
+                hide: 5000
+                }
+            });
+        </script>
+        {% endif %}
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('navbar_user') }}#}
+            {#{{ encore_entry_script_tags('get_data_from_fetch_test') }}#}
+        {% endblock %}
+    
+    </body>
+</html>

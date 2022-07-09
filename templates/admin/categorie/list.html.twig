@@ -1,0 +1,46 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+  <br><br>
+  <div class="ui centered cards">
+    <table class="ui inverted black collapsing table slowmo-show">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Date de création</th>
+          <th>Nb. articles</th>
+          <th>
+            <a class="ui primary inverted circular button" href="{{ path('admin_create_cat') }}">Ajouter une nouvelle catégorie</a>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for categorie in categories %}
+        <tr>
+          <td>{{ categorie.id }}</td>
+          <td>{{ categorie.nom }}</td>
+          <td>{{ categorie.createdAt|date('d/m/y') }} _ {{ categorie.createdAt|date('H:i') }}</td>
+          <td>
+          <a
+          {% if categorie.produits.count != 0 %}
+            href="{{ path('admin_cat_prod', {id: categorie.id}) }}"
+          {% endif %}
+           class="ui teal circular inverted button">{{categorie.produits.count}}</a></td>
+          <td>
+            <a class="ui teal circular button" href="{{ path('admin_edit_cat', {id: categorie.id}) }}">Modifier</a>
+            <a class="ui red  circular button" href="{{ path('admin_delete_cat', {id: categorie.id}) }}">Supprimer</a>
+           </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th></th>
+          <th><div class="ui black inverted circular disabled button">Total: {{categories|length}}</div></th>
+          <th> </th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+{% endblock %}

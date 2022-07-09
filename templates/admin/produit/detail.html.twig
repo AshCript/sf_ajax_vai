@@ -1,0 +1,43 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+  <br><br>
+  <div class="ui raised very padded inverted text container segment slowmo-show">
+    <h2 class="ui header">
+      {{ produit.marque }}
+      {{ produit.model }}
+      <span class="ui tag teal label label-cat">{{ produit.categorie }}</span>
+    </h2>
+    <p>
+      <span class="price-title">Prix : </span>
+      <span class="actual-price">{{produit.prix}} Ar.</span>
+       {% if produit.prix != produit.prevPrix %}
+        <span class="old-price">{{produit.prevPrix}} Ar.</span>
+      {% endif %}
+    </p>
+    <h3 class="detail-description">
+      <u>Déscription</u>
+      <br>{{ produit.description }}
+    </h3>
+    <h3>Disponibilité :
+    {% if produit.dispo %}
+     <span class="actual-price">disponible</span>
+    {% else %}
+     <span class="actual-price" style="background-color: rgb(196, 75, 75);">non disponible</span>
+    {% endif %}
+    </h3>
+    {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+    <h4>Date de création : {{ produit.createdAt|date }}</h4>
+    <h4>Date de modification : {{ produit.updatedAt|date }}</h4>
+    <div class="button-container">
+      <a href=" {{path('admin_edit_prod', {id: produit.id})}}" class="ui teal button">Modifier</a>
+      <a href=" {{path('admin_delete_prod', {id: produit.id})}}" class="ui red button">Supprimer</a>
+    </div>
+    {% endif %}
+    <div class="button-back">
+      <a href="{{path('admin_prod')}}">
+        <i class="angle left inverted large circular teal icon"></i>
+      </a>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "admin/base.html.twig" %}
+
+{% block stylesheets %}
+<style>
+  table{
+    width: 100%;
+  }
+  tr{
+    text-align: left;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<br><br>
+<div class="ui centered cards slowmo-show">
+  <div>
+    <div class="marques">
+      {% for marque in marques %}
+        <a class="ui label  black mini">{{marque}}</a>
+      {% endfor %}
+    </div>
+    <table class="ui inverted black collapsing table">
+      <thead>
+        <tr>
+          <th class="ui teal button active"><u>Nos {{categorie.nom}}s</u></th>
+        </tr>
+        <tr>
+          <th>ID</th>
+          <th>Marque</th>
+          <th>Modèle</th>
+          <th>Prix</th>
+          <th>Prix préc.</th>
+          <th>Dispo.</th>
+          <th>
+            <a class="ui primary inverted circular button" href="{{ path('admin_create_prod') }}">Ajouter un nouveau produit</a>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for produit in produits %}
+        <tr>
+          <td>{{ produit.id }}</td>
+          <td>{{ produit.marque }}</td>
+          <td>{{ produit.model }}</td>
+          <td>{{ produit.prix }}</td>
+          <td>{{ produit.prevPrix }}</td>
+          <td>
+            {% if produit.dispo %}
+              <a href="{{ path('admin_switch_dispo_prod', {id: produit.id}) }}" class="ui teal label">Oui</a>
+            {% else %}
+              <a href="{{ path('admin_switch_dispo_prod', {id: produit.id}) }}" class="ui red label">Non</a>
+            {% endif %}
+          </td>
+          <td style="text-align: center">
+            <a class="" href="{{ path('admin_detail_prod', {id: produit.id}) }}"><i class="file alternate outline circular large yellow inverted icon"></i></a>
+            <a class="" href="{{ path('admin_edit_prod', {id: produit.id}) }}"><i class="edit outline circular large teal inverted icon"></i></a>
+            <a class="" href="{{ path('admin_delete_prod', {id: produit.id}) }}"><i class="times circular large red inverted icon"></i></a>
+          </td> 
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th></th>
+          <th><div class="ui black inverted circular disabled button">Total: {{produits|length}}</div></th>
+          <th> </th>
+        </tr>
+      </tfoot>
+    </table>
+  
+  </div>
+</div>
+{% endblock %}

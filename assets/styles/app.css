@@ -1,0 +1,413 @@
+*{
+    scrollbar-width: none;
+  }
+  
+  .link-to-text{
+    color: rgb(196, 196, 196);
+  }
+  a:hover{
+    color: inherit;
+  }
+  .rot{
+    transform: rotate(-20deg);
+  }
+  .teal-field{
+    background-color: black;
+  }
+  .color-teal{
+    color: rgb(15, 202, 202);
+  }
+  .style-logo{
+    display: inline-block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background-color: rgb(36, 165, 165);
+    transform: rotate(-30deg);
+  }
+  .bg-image{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    z-index: -1;
+  }
+  .centrify{
+    display: inline-block;
+    padding: 40px;
+    border-radius: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.707);
+  }
+  .bg-transparent{
+    background-color: black;
+  }
+  .connected-user{
+    position: absolute;
+    right: 1%;
+  }
+  .my-logo{
+    display: inline-block;
+    color: rgb(15, 202, 202);
+    border: 2px solid teal;
+    border-bottom: none;
+    border-top: none;
+    padding: 10px;
+    border-radius: 40%;
+  }
+  .user-id{
+    position: relative;
+    display: inline-block;
+    min-width: 100px;
+    background-color: rgba(34, 75, 73, 0.623);
+    color: rgb(50, 207, 207);
+    border-radius: 20px;
+    padding-right: 20px;
+    font-size: x-small;
+  }
+  .my-user-info, .my-user-avatar{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px;
+  }
+  .bg-image-section{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    z-index: -2;
+  }
+  .bg-image-section img{
+    position: absolute;
+    width: 100%;
+    opacity: .1;
+  }
+  .logout-link{
+    color: rgb(236, 54, 54);
+    margin-left: 10px;
+  }
+  .text-left{
+    text-align: left;
+  }
+  .actual-price{
+    font-style: italic;
+    font-weight: bold;
+    color: rgb(216, 216, 216);
+    background-color: teal;
+    border-radius: 5px;
+    padding: 2px;
+  
+  }
+  .old-price{
+    font-style: italic;
+    color: rgb(131, 131, 131);
+    text-decoration: line-through;
+  }
+  .price-title{
+    color: rgb(97, 97, 97);
+    font-style: italic;
+  }
+  .price-status{
+    position: absolute;
+    right: 0px;
+    top: 35%;
+  }
+  .price-banner{
+    padding: 10px;
+  }
+  .body-dark{
+    background-color: rgb(19, 19, 19);
+    color: rgb(209, 209, 209);
+  }
+  .notif{
+    position: absolute;
+    opacity: 1;
+    left: 0px;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    font-size: 10px;
+    text-align: center;
+    color: black;
+    animation-name: notif-anim;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  @keyframes notif-anim{
+    0%{
+      opacity: 0;
+    }
+    10%{
+      opacity: 0;
+    }
+    15%{
+      opacity: 1;
+    }
+    95%{
+      opacity: 1;
+    }
+    100%{
+      opacity: 0;
+    }
+  }
+  .notif-container, .bag-container{
+    position: relative;
+    cursor: pointer;
+  }
+  .notif div{
+    position: relative;
+    bottom: 2.5px;
+    display: block;
+  }
+  .notif-item{
+    position: relative;
+    font-size: 12px;
+    display: block;
+    min-height: 50px;
+    cursor: pointer;
+    color: rgb(121, 120, 120);
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    transition-property: background-color, color;
+    transition-duration: .5s;
+  }
+  .notif-item:hover{
+    background-color: rgb(48, 48, 48);
+    color: rgb(197, 197, 197);
+  }
+  .notif-icon{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: rgb(255, 183, 0);
+    border-radius: 5px;
+    font-size: 10px;
+    text-align: center;
+  }
+  .notif-date{
+    position: absolute;
+    right: 5px;
+    bottom: 0px;
+    font-style: italic;
+    font-size: 10px;
+  }
+  .line{
+    width: 100%;
+    background-color: rgb(208, 208, 208);
+    margin: 3px;
+    height: 1px;
+  }
+  .unavailable-product div{
+    display: inline-block;
+    max-width: 75%;
+    vertical-align: middle;
+    margin: 2px;
+  }
+  .detail-description{
+    background-color: rgb(44, 44, 44);
+    border-radius: 15px;
+    padding: 10px;
+    color: rgb(187, 187, 187);
+  }
+  .button-container{
+    position: absolute;
+    display: inline-block;
+    right: 20px;
+    bottom: 20px;
+  }
+  .button-back{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
+  .slowmo-show{
+    position: relative;
+    opacity: 1;
+    animation-name: slowmo;
+    animation-duration: 1s;
+  }
+  @keyframes slowmo{
+    0%{
+      top: 0px;
+      opacity: 0;
+    }
+    40%{
+      top: 0px;
+      opacity: 0;
+    }
+    70%{
+      top: -50px;
+    }
+    80%{
+      top: 0px;
+    }
+    85%{
+      top: -25px;
+    }
+    90%{
+      top: 0px;
+    }
+    92%{
+      top: -20px;
+    }
+    94%{
+      top: 0px;
+    }
+    96%{
+      top: -10px;
+    }
+    97%{
+      top: 0px;
+    }
+    98%{
+      top: -5px;
+    }
+    100%{
+      top: 0px;
+      opacity: 1;
+    }
+  }
+  .notif-small-text{
+    font-size: 10px;
+  }
+  .near-admin{
+    display: inline-block;
+    position: absolute;
+    left: -2px;
+    top: 0px;
+  }
+  .my-popup{
+    cursor:pointer;
+  }
+  .as-notif-banner{
+    position: fixed;
+    bottom: -100px;
+    left: 20px;
+    width: 600px;
+    height: 80px;
+    opacity: 0;
+    border-radius: 20px;
+    background-color: teal;
+    z-index: 2500000;
+    cursor: pointer;
+    transition-property: opacity, bottom;
+    transition-duration: 0.5s;
+    animation-name: showNotifBanner;
+    animation-duration: 4s;
+    animation-iteration-count: none;
+    animation-timing-function: linear;
+  }
+  @keyframes showNotifBanner{
+    10%{opacity: 0; bottom: -50px}
+    12%{opacity: 1; bottom: 20px}
+    15%{bottom: 10px}
+    18%{bottom: 20px}
+    11%{bottom: 13px}
+    14%{bottom: 20px}
+    92%{opacity: 1; bottom: 20px}
+    95%{opacity: 1; bottom: 30px}
+    98%{opacity: 1; bottom: 30px}
+    100%{opacity: 0; bottom: -50px}
+  }
+  
+  /* .as-notif-icon, .as-success-notif, .as-danger-notif, .as-short-bar, .as-long-bar, .as-notif-message{
+  
+  } */
+  
+  .as-success-notif{
+    position: relative;
+    display: inline-block;
+    height: 80px;
+    width: 25%;
+    vertical-align: middle;
+  }
+  .as-circle{
+    position: relative;
+    display: inline-block;
+    left: 15px;
+    top: 12px;
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+  }
+  .as-notif-message{
+    display: inline-block;
+    width: 400px;
+    position: relative;
+    color: white;
+    font-family: sans-serif;
+    vertical-align: middle;
+    
+  }
+  .as-short-bar{
+    position: absolute;
+    top: 42px;
+    left: 32px;
+    background-color: white;
+    width: 10px;
+    height: 2px;
+    transform: rotate(50deg);
+    transition-property: width;
+    transition-duration: .5s;
+    animation-name: animShortBar;
+    animation-duration: 4s;
+    animation-iteration-count: none;
+    animation-timing-function: linear;
+  }
+  @keyframes animShortBar{
+    10%{width: 0px}
+    15%{width: 10px}
+  }
+  .as-long-bar{
+    position: absolute;
+    top: 37px;
+    left: 35px;
+    background-color: white;
+    width: 25px;
+    height: 2px;
+    transform: rotate(-50deg);
+    animation-name: animLongBar;
+    animation-duration: 4s;
+    animation-iteration-count: none;
+    animation-timing-function: linear;
+  }
+  @keyframes animLongBar{
+    10%{width: 0px; top: 37px;}
+    15%{width: 25px}
+  }
+  .label-cat{
+    transform: rotate(-10deg);
+    bottom: 10px;
+    animation-name: animLabelCat;
+    animation-duration: .5s;
+    animation-timing-function: linear;
+  }
+  @keyframes animLabelCat{
+    0%{transform: rotate(-25deg)}
+    50%{transform: rotate(25deg)}
+    70%{transform: rotate(-15deg)}
+    90%{transform: rotate(15deg)}
+    100%{transform: rotate(10deg)}
+  }
+  .my-checkbox{
+    width: 40px;
+    height: 40px;
+  }
+  .marques{
+    text-align: right;
+    position: relative;
+    width: 814px;
+    overflow: hidden;
+    background: linear-gradient(to right, rgba(17, 126, 115, 0), rgba(17, 126, 115, 0.296), rgba(22, 209, 191, 0.5));
+    border-radius: 5px 10px 20px 5px;
+    padding: 5px;
+    padding-right: 10px;
+  
+  }

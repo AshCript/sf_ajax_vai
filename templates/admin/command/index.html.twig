@@ -1,0 +1,74 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+  <br><br><br><br>
+  <div class="ui raised very padded inverted text  segment slowmo-show">
+    <table class="ui inverted black table">
+        <thead>
+        <tr>
+          <th>N°</th>
+          <th>Date</th>
+          <th>Client</th>
+          <th>Marque et Modèle</th>
+          <th>Qté</th>
+          <th>P.U</th>
+          <th>Montant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class='notif-small-text'>
+          <td>{{pannier.id}}</td>
+          <td>{{pannier.paidAt|date('d-m-Y')}}</td>
+          <td>{{pannier.user.nom}} {{pannier.user.prenom}}</td>
+          <td>{{pannier.produit.marque}} {{pannier.produit.model}}</td>
+          <td>{{pannier.quantity}}</td>
+          <td>{{pannier.prix}}</td>
+          <td>{{pannier.quantity * pannier.prix}}</td>
+          <td>
+            {% if pannier.payStatus %}
+              <div class="ui teal label my-popup" data-content="{{pannier.paidAt|date('d-m-Y')}} vers {{pannier.paidAt|date('h:i')}}">
+                <i class="check teal inverted icon"></i>Payée
+              </div>
+            {% else %}
+              <div class="ui red label my-popup" data-content="{{pannier.paidAt|date('d-m-Y')}} vers {{pannier.paidAt|date('h:i')}}">
+                <i class="times red inverted icon"></i>Payée
+              </div>
+            {% endif %}
+            {% if pannier.validated %}
+              <div class="ui teal label my-popup" data-content="{{pannier.validatedAt|date('d-m-Y')}} vers {{pannier.validatedAt|date('h:i')}}">
+                <i class="check teal inverted icon"></i>Validée
+              </div>
+              {% if pannier.delivered == false %}
+                <a class="ui teal circular button" href="{{path('admin_deliver', {id: pannier.id})}}">Livrer</a>
+              {% endif %}
+            {% else %}
+              <a class="ui teal circular button" href="{{path('admin_validate', {id: pannier.id})}}">Valider</a>
+              {% if pannier.delivered %}
+                <div class="ui teal label my-popup" data-content="{{pannier.deliveredAt|date('d-m-Y')}} vers {{pannier.deliveredAt|date('h:i')}}">
+                  <i class="check teal inverted icon"></i>Livrée
+                </div>
+              {% else %}
+                <a class="ui teal circular button disabled" href="{{path('admin_deliver', {id: pannier.id})}}">Livrer</a>
+              {% endif %}
+            {% endif %}
+            {% if pannier.delivered %}
+            <div class="ui teal label my-popup" data-content="{{pannier.deliveredAt|date('d-m-Y')}} vers {{pannier.deliveredAt|date('h:i')}}">
+              <i class="check teal inverted icon"></i>Livrée
+            </div>
+            {% else %}
+            {% endif %}
+          </td> 
+        </tr>
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+{% block javascripts %}
+<script>
+$('.my-popup')
+  .popup({
+    inline: true
+  })
+;
+</script>
+{% endblock %}

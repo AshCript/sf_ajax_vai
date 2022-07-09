@@ -1,0 +1,63 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+<br>
+<div class="ui raised very padded inverted text container segment slowmo-show">
+  <h2 class="ui centered text">
+  {% if editMode %}
+    Modification du {{produit.categorie}} {{produit.marque}} {{produit.model}}
+  {% else %}
+    Ajout d'un nouveau produit
+  {% endif %}
+  </h2>
+  {{form_start(form_produit, {
+    'attr': {
+    'class' : 'ui form',
+    }})
+  }}
+  <div class="three fields">
+    <div class="field">
+    {{form_row(form_produit.categorie)}}
+    </div>
+    <div class="field">
+    {{form_row(form_produit.marque, {
+      'attr': {
+        'class' : '',
+        'placeholder' : 'Marque'
+      }})
+    }}
+    </div>
+    <div class="field">
+    {{form_row(form_produit.model, {
+      'attr': {
+        'class' : '',
+        'placeholder' : 'Marque'
+      }})
+    }}
+    </div>
+  </div>
+  <div class="field">
+    {{form_row(form_produit.description)}}
+  </div>
+  <div class="four fields">
+    <div class="field">
+      {{form_row(form_produit.prix)}}
+    </div>
+  </div>
+
+  <div class="field">
+    {{form_row(form_produit.dispo, {
+      'label' : 'Disponibilité : ',
+    })}}
+  </div>
+  <div class="button-container" style="bottom: -30px;">
+    <input class="ui teal button " type="submit" value="Enregistrer">
+  </div>
+  {{form_end(form_produit)}}
+  <div class="button-back">
+    <a href="{{path('admin_prod')}}">
+      <i class="angle left inverted large circular teal icon"></i>
+    </a>
+  </div>
+</div>
+{% endblock %}

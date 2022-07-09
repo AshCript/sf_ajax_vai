@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{# <pre>
+  {{ dump(app.user.roles) }}
+  {{ dump(app.user) }}
+</pre> #}
+  <div class="ui container middle aligned grid">
+    <div class="ui column grid">
+      <div class="column">
+        <div class="ui raised inverted segment" style="background-color: teal; border-radius: 20px; display: inline-block">
+          <a class="ui teal inverted ribbon label">Mon compte</a>
+          <span class="ui text">À propos</span>
+          <br><br>
+          <div class="centered">
+            <div class="my-user-avatar">
+              {% if app.user.avatar != null %}
+                <img class="ui circular image" src="{{ asset('img/img1.jpg') }}" style="width: 300px; height: 300px;">
+              {% else %}
+                <img class="ui circular image" src="{{ asset('img/img1.jpg') }}" style="width: 300px; height: 300px;">
+              {% endif %}
+            </div>
+            <div class="my-user-info">
+              <h3 style="text-align: left">
+                Nom : {{app.user.nom}}
+                <br>
+                Prénom : {{app.user.prenom}}
+                <br>
+                Sexe : {{app.user.sexe}}
+                <br>
+                Tel : {{app.user.telephone}}
+                <br>
+                Ville : {{app.user.ville}}
+                <br>
+                Adresse : {{app.user.adresse}}
+                <br>
+              </h3>
+              <a href=" {{path('edit_info')}} " class="ui teal button">Modifier mes infos</a>
+              <a href="" class="ui inverted red button">Supprimer mon compte</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

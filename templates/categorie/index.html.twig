@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les produits par categorie {% endblock %}
+
+{% block body %}
+    <div class="ui container">
+    {% for categorie in categories %}
+        
+        {% if app.request.requestUri == path('categorie', {id: categorie.id}) %}
+        <div class="ui link centered cards ">
+            {% if categorie.produits.count == 0 %}
+                <h1>Il n'y a pas d'article pour cette catégorie pour le moment</h1>
+            {% else %}
+            {% for produit in categorie.produits %}
+                <div class="ui card">
+                    <div class="image">
+                        {% if produit.dispo == false %}
+                        <a class="ui red ribbon label">Non disponible</a>
+                        {% endif %}
+                        <img src="{{asset('img/img1.jpg')}}">
+                    </div>
+                    <div class="content">
+                        <div class="header">
+                            {{produit.marque}} {{produit.model}}
+                            
+                        </div>
+                        
+                        <span class="price-title">Prix : </span>  <span class="actual-price">{{produit.prix}} Ar.</span>
+                        {% if produit.prix != produit.prevPrix %}
+                        <span class="old-price">{{produit.prevPrix}} Ar.</span>
+                        {% endif %}
+                        {% if produit.prix < produit.prevPrix %}
+                            <i class="arrow down teal icon"></i>
+                        {% elseif produit.prix > produit.prevPrix %}
+                            <i class="arrow up red icon"></i>
+                        {% endif %}
+                        <div class="description">
+                        {{produit.description}}
+                        </div>
+                    </div>
+                    <div class="ui two bottom attached buttons">
+                        <button class="ui black button" onClick="showProductDetail({id : '{{produit.id}}', categorie : '{{produit.categorie}}', marque : '{{produit.marque}}', model : '{{produit.model}}', prix : '{{produit.prix}}', prevPrix : '{{produit.prevPrix}}', description : '{{produit.description}}', dispo : '{{produit.dispo}}'})">
+                            <i class="file alternate outline icon"></i>
+                            Détails
+                        </button>
+                        {% if produit.dispo %}
+
+                        <button class="ui teal button" onclick="askQte('{{produit.id}}', '{{produit.marque}}', '{{produit.model}}', '{{produit.prix}}')">
+                        <i class="shopping cart icon"></i>
+                        Acheter
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="ui popup">
+                    <div class="meta price-banner">
+                    {% if produit.dispo %}
+                        <span class="price-title">Prix actuel : </span>  <span class="actual-price">{{produit.prix}} Ar.</span>
+                        <br>
+                        {% if produit.prix != produit.prevPrix %}
+                        <span class="price-title">Prix prec. : </span><span class="old-price">{{produit.prevPrix}} Ar.</span>
+                        {% endif %}
+                            {% if produit.prix < produit.prevPrix %}
+                            <div class="price-status">
+                                <i class="arrow down teal icon"></i>
+                            </div>
+                            {% elseif produit.prix > produit.prevPrix %}
+                            <div class="price-status">
+                                <i class="arrow up red icon"></i>
+                            </div>
+                            {% endif %}
+                    {% else %}
+                        <span class="unavailable-product" style="color: red">
+                            <div>
+                                <i class="frown outline red inverted large icon"></i>
+                            </div>
+                            <div>
+                                Article non disponible pour le moment
+                            </div>
+                        </span>
+                    {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="ui teal header titre-modal-qte"></div>
+        <div class="content">
+            {# <div class="ui medium image">
+                <img src="../images/avatar/large/chris.jpg">
+            </div> #}
+            
+            <div class="description">
+                <div class="ui header grey">Veuillez indiquer la quantité s'il vous plaît!</div>
+                <div class="ui left icon input">
+                    <input class="qte" type="text" placeholder="Quantité..." style="color: teal" onChange="qteChange(event)">
+                    <i class="tags teal icon"></i>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">
+            Annuler
+            </div>
+            <a class="ui positive right button sendcmd" href="">
+            Envoyer
+            {# <i class="checkmark icon"></i> #}
+            </a>
+        </div>
+    </div>
+
+
+
+
+    <br><br>
+  <div class="ui raised very padded inverted text container segment slowmo-show" id="detailProduit" style="position: absolute; left: 30%; bottom: 300px; z-index: 20; display: none; background-color: rgba(16, 16, 16, 0.96)">
+    <h2 class="ui header" id="marqueModel"></h2>
+    <p>
+      <span class="price-title">Prix : </span>
+      <span class="actual-price" id="prix"></span>
+      <span id="old_price"></span>
+    </p>
+    <h3 class="detail-description">
+      <u>Déscription</u>
+      <br>
+      <div id="description"></div>
+    </h3>
+    <h3>Disponibilité : <span class="actual-price" id="actual_price"></span>
+
+        
+    {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+    <h4>Date de création : {{ produit.createdAt|date }}</h4>
+    <h4>Date de modification : {{ produit.updatedAt|date }}</h4>
+    <div class="button-container">
+      <a href=" {{path('edit_produit', {id: produit.id})}}" class="ui teal button">Modifier</a>
+      <a href=" {{path('delete_produit', {id: produit.id})}}" class="ui red button">Supprimer</a>
+    </div>
+    {% endif %}
+    <div class="button-back">
+    {#
+        <a href="{{path('categorie', {id: produit.categorie.id})}}">
+            <i class="angle left inverted large circular teal icon"></i>
+        </a>
+    #}
+        <div onClick="hideProductDetail()" style="cursor: pointer">
+            <i class="angle left inverted large circular teal icon"></i>
+        </div>
+
+    </div>
+  </div>
+{% endblock %}
+{% block javascripts %}
+<script>
+    var idProduit = '';
+    var qteProduit = '';
+    $('.card').popup({inline: true});
+    const askQte = (id, marque, model, prix) =>{
+        $('.ui.modal').modal('show');
+        $('.titre-modal-qte').html(marque + " " + model + " <span style='color: white; background-color: grey; padding: 3px; border-radius: 5px;'>" + prix + " Ar.</span>");
+        idProduit = id;
+    }
+    const qteChange = (e) => {
+        qteProduit = e.currentTarget.value;
+        //$('.qte').attr.value = 2;
+        $('.sendcmd').attr('href', "/produit/" + idProduit + "/buy/" + qteProduit);
+        //$('.sendQte').href = "{{ path('buy_produit', {id:" + idProduit + ", qte:" + qteProduit + "}) }}";
+    }
+
+    const showProductDetail = (produit) => {
+        $('#detailProduit').css(
+            "display", "inline-block"
+        );
+        $('#marqueModel').html(produit.marque + " " + produit.model + "<span class='ui tag teal label label-cat'>" + produit.categorie + "</span>");
+        $('#prix').html(produit.prix + "Ar.");
+        if(produit.prix != produit.prevPrix){
+            $('#old_price').html("<span class='old-price'>" + produit.prevPrix + " Ar. </span>");
+        }
+        $('#description').html(produit.description);
+        if(produit.dispo){
+            $("#actual_price").html("disponible");
+        }else{
+            $("#actual_price").css(
+                "background-color", "rgb(196, 75, 75)"
+            );
+            $("#actual_price").html("non disponible");
+        }
+    }
+
+    const hideProductDetail = () => {
+        $('#detailProduit').css("display", "none");
+    }
+</script>
+{% endblock %}
