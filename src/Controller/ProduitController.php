@@ -100,7 +100,7 @@ class ProduitController extends AbstractController
         $notifClient = new Notif();
         $notifAdmin = new Notif();
         
-        $admin = $repAdmin->findBy(['email' => 'admin2@gmail.com']);
+        $admin = $repAdmin->findOneBy(['email' => 'admin2@gmail.com']);
 
         $pannier->setUser($this->getUser())
                 ->setProduit($produit)
@@ -126,7 +126,7 @@ class ProduitController extends AbstractController
             'paidAt' => $pannier->getPaidAt(),
             'quantity' => $pannier->getQuantity(),
         ]);
-        $notifAdmin->setUser($admin[0])
+        $notifAdmin->setUser($admin)
                    ->setTitle($this->getUser()->getNom()." ".$this->getUser()->getPrenom(). " a effectué une commande")
                    ->setMessage("
                         <table class=\"ui inverted black table\">

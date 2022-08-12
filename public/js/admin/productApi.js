@@ -329,7 +329,7 @@ const showDetailProduct = (id) => {
   produit += "<h4>Date de dernière modification : " + p.updatedAt + "</h4>"
   produit += "<div class='button-container'>"
   produit += "<button class='ui teal button' onClick='editProduct(" + p.id + ")'>Modifier</button>"
-  produit += "<button class='ui red button'>Supprimer</button>"
+  produit += "<button class='ui red button' onClick='showDeleteProductModal(" + p.id + ", \"" + p.marque + "\", \"" + p.model + "\")'>Supprimer</button>"
   produit += "</div>"
   produit += "<div class='button-back'>"
   produit += "<div onClick='hideModal()' style='cursor: pointer'>"
